@@ -59,8 +59,8 @@ PODS:
   - rppg_common (0.0.1):
     - Flutter
     - GoogleMLKit/FaceDetection
-    - Starscream (= 4.0.0)
-  - Starscream (4.0.0)
+    - Starscream (~> 4.0.0)
+  - Starscream (4.0.6)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -106,9 +106,9 @@ SPEC CHECKSUMS:
   MLKitVision: 8baa5f46ee3352614169b85250574fde38c36f49
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
-  rppg_common: 3644c1592bfa473b3cead1b8a364bbf1f3ca922f
-  Starscream: 04b26f02727e10a002e6b5d21b188ba0d049910b
+  rppg_common: 8beb32ed0de0aa51f397703ba3a1b8a3e310466b
+  Starscream: fb2c4510bebf908c62bd383bcf05e673720e91fd
 
-PODFILE CHECKSUM: ed19a60d68698c83d631edbb1c50b4364f155b19
+PODFILE CHECKSUM: 12434b389dee38ed88f58a8d5904fb94ba42cf7b
 
 COCOAPODS: 1.14.3

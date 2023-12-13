@@ -16,6 +16,7 @@ A new Flutter project.
   s.source_files = 'Classes/**/*'
   s.dependency 'Flutter'
   s.platform = :ios, '13.1'
+  s.platform = :ios
   s.ios.deployment_target = '13.1'
 
   s.static_framework = true
@@ -27,16 +28,15 @@ A new Flutter project.
   s.swift_version = '5.0'
 
   # Specify any additional frameworks or libraries needed by your plugin
-  s.frameworks = 'GoogleMLKit', 'Starscream'
+  s.ios.framework = 'RPPGCommon', 'RPPGCore'
 
   # Library dependencies
   s.dependency 'GoogleMLKit/FaceDetection'
-  s.dependency 'Starscream', '4.0.0'
-#   s.dependency 'Protobuf'
+  s.dependency 'Starscream', '~> 4.0.0'
 
   # Native frameworks
-  s.xcconfig = { 'HEADER_SEARCH_PATHS' => [ '"${PODS_ROOT}/GoogleMLKit/MLKitCore/Sources"' , '"${PODS_ROOT}/Starscream"'],
-                 'OTHER_LDFLAGS' => '-framework GoogleMLKit Starscream' }
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => [ '"${PODS_ROOT}/GoogleMLKit/MLKitCore/Sources"', '"${PODS_ROOT}/Starscream"'],
+                 'OTHER_LDFLAGS' => '-framework RPPGCore -framework RPPGCommon'}
   s.preserve_paths = 'Frameworks/*.framework'
   s.vendored_frameworks = 'Frameworks/RPPGCommon.framework', 'Frameworks/RPPGCore.framework'
 
