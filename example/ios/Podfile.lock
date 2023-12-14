@@ -56,11 +56,13 @@ PODS:
   - nanopb/decode (2.30909.1)
   - nanopb/encode (2.30909.1)
   - PromisesObjC (2.3.1)
+  - Protobuf (3.25.1)
   - rppg_common (0.0.1):
     - Flutter
     - GoogleMLKit/FaceDetection
-    - Starscream (~> 4.0.0)
-  - Starscream (4.0.6)
+    - Protobuf
+    - Starscream (= 4.0.4)
+  - Starscream (4.0.4)
 
 DEPENDENCIES:
   - Flutter (from `Flutter`)
@@ -81,6 +83,7 @@ SPEC REPOS:
     - MLKitVision
     - nanopb
     - PromisesObjC
+    - Protobuf
     - Starscream
 
 EXTERNAL SOURCES:
@@ -106,9 +109,10 @@ SPEC CHECKSUMS:
   MLKitVision: 8baa5f46ee3352614169b85250574fde38c36f49
   nanopb: d4d75c12cd1316f4a64e3c6963f879ecd4b5e0d5
   PromisesObjC: c50d2056b5253dadbd6c2bea79b0674bd5a52fa4
-  rppg_common: 8beb32ed0de0aa51f397703ba3a1b8a3e310466b
-  Starscream: fb2c4510bebf908c62bd383bcf05e673720e91fd
+  Protobuf: d94761c33f1239c0a43a0817ca1a5f7f7c900241
+  rppg_common: 92b65c245dc3ff838cc314fa62f67ebe78b3970c
+  Starscream: 5178aed56b316f13fa3bc55694e583d35dd414d9
 
-PODFILE CHECKSUM: 12434b389dee38ed88f58a8d5904fb94ba42cf7b
+PODFILE CHECKSUM: 7b09fc1cf43b6c18c9cfb8388fdf33fbf13e3fca
 
 COCOAPODS: 1.14.3

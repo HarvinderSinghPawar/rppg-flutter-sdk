@@ -32,11 +32,12 @@ A new Flutter project.
 
   # Library dependencies
   s.dependency 'GoogleMLKit/FaceDetection'
-  s.dependency 'Starscream', '~> 4.0.0'
+  s.dependency 'Starscream', '4.0.4'
+  s.dependency 'Protobuf'
 
   # Native frameworks
-  s.xcconfig = { 'HEADER_SEARCH_PATHS' => [ '"${PODS_ROOT}/GoogleMLKit/MLKitCore/Sources"', '"${PODS_ROOT}/Starscream"'],
-                 'OTHER_LDFLAGS' => '-framework RPPGCore -framework RPPGCommon'}
+  s.xcconfig = { 'HEADER_SEARCH_PATHS' => [ '"${PODS_ROOT}/GoogleMLKit/MLKitCore/Sources"' ],
+                 'OTHER_LDFLAGS' => '-framework RPPGCore -framework RPPGCommon '}
   s.preserve_paths = 'Frameworks/*.framework'
   s.vendored_frameworks = 'Frameworks/RPPGCommon.framework', 'Frameworks/RPPGCore.framework'
 
