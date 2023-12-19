@@ -17,6 +17,8 @@ dependencies:
   flutter:
     sdk: flutter
 
+  get: ^4.6.6
+
   rppg_common:
     # When depending on this package from a real application you should use:
     #   rppg_common: ^x.y.z

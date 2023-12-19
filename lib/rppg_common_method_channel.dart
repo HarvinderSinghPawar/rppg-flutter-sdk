@@ -14,4 +14,23 @@ class MethodChannelRppgCommon extends RppgCommonPlatform {
     final version = await methodChannel.invokeMethod<String>('getPlatformVersion');
     return version;
   }
+
+  @override
+  Future<String?> askPermissions() async {
+    final result = await methodChannel.invokeMethod<String>('askPermissions');
+    return result;
+  }
+
+  @override
+  Future<String?> beginSession() async {
+    final result = await methodChannel.invokeMethod<String>('beginSession');
+    return result;
+  }
+
+  @override
+  Future<String?> startAnalysis() async {
+    final result = await methodChannel.invokeMethod<String>('startAnalysis');
+    return result;
+  }
+
 }

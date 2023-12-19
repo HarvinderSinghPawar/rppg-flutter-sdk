@@ -10,6 +10,22 @@ class MockRppgCommonPlatform
 
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
+
+  @override
+  Future<String?> startAnalysis() => Future.value('Starting Analysis...');
+
+  @override
+  Future<String?> askPermissions() {
+    // TODO: implement askPermissions
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> beginSession() {
+    // TODO: implement beginSession
+    throw UnimplementedError();
+  }
+
 }
 
 void main() {
@@ -25,5 +41,13 @@ void main() {
     RppgCommonPlatform.instance = fakePlatform;
 
     expect(await rppgCommonPlugin.getPlatformVersion(), '42');
+  });
+
+  test('startAnalysis', () async {
+    RppgCommon rppgCommonPlugin = RppgCommon();
+    MockRppgCommonPlatform fakePlatform = MockRppgCommonPlatform();
+    RppgCommonPlatform.instance = fakePlatform;
+
+    expect(await rppgCommonPlugin.startAnalysis(), 'Starting Analysis...');
   });
 }

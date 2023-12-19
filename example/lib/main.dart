@@ -3,9 +3,12 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 import 'package:rppg_common/rppg_common.dart';
+import 'package:get/get.dart';
+import 'package:rppg_common_example/camera_view.dart';
+
 
 void main() {
-  runApp(const MyApp());
+  runApp(const GetMaterialApp(home: MyApp()));
 }
 
 class MyApp extends StatefulWidget {
@@ -47,6 +50,22 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+
+  Future<void> nativeCameraView() async {
+    String platformVersion;
+    try {
+      platformVersion =
+          await _rppgCommonPlugin.getPlatformVersion() ?? 'Unknown platform version';
+    } on PlatformException {
+      platformVersion = 'Failed to get platform version.';
+    }
+    if (!mounted) return;
+
+    setState(() {
+      _platformVersion = platformVersion;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -55,7 +74,52 @@ class _MyAppState extends State<MyApp> {
           title: const Text('Plugin example app'),
         ),
         body: Center(
-          child: Text('Running on: $_platformVersion\n'),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text('Running on: $_platformVersion\n'),
+              const SizedBox(height: 20.00,),
+              ElevatedButton.icon(
+                onPressed: (){
+                // Get.to(const CameraView());
+                try {
+                   _rppgCommonPlugin.askPermissions();
+                } on PlatformException {
+                  _platformVersion = 'Failed to get platform version.';
+                }
+              },
+                icon: const Icon(Icons.check),
+                label: const Text("Ask Permission"),
+              ),
+              const SizedBox(height: 20.00,),
+              ElevatedButton.icon(
+                onPressed: (){
+                  // Get.to(const CameraView());
+                  try {
+                    _rppgCommonPlugin.beginSession();
+                  } on PlatformException {
+                    _platformVersion = 'Failed to get platform version.';
+                  }
+                },
+                icon: const Icon(Icons.start),
+                label: const Text("Begin Session"),
+              ),
+              const SizedBox(height: 20.00,),
+              ElevatedButton.icon(
+                onPressed: (){
+                  try {
+                    _rppgCommonPlugin.startAnalysis();
+                    Get.to(const CameraView());
+                  } on PlatformException {
+                    _platformVersion = 'Failed to get platform version.';
+                  }
+                },
+                icon: const Icon(Icons.camera),
+                label: const Text("Start Ananlysis"),
+              ),
+            ],
+          ),
         ),
       ),
     );

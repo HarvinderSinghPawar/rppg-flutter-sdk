@@ -26,4 +26,16 @@ abstract class RppgCommonPlatform extends PlatformInterface {
   Future<String?> getPlatformVersion() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
+
+  Future<String?> askPermissions() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> beginSession() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> startAnalysis() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
 }
