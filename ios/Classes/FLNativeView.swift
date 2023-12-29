@@ -8,6 +8,7 @@
 import Flutter
 import UIKit
 
+
 class FLNativeViewFactory: NSObject, FlutterPlatformViewFactory {
     private var messenger: FlutterBinaryMessenger
 
@@ -29,17 +30,17 @@ class FLNativeViewFactory: NSObject, FlutterPlatformViewFactory {
     }
 
     /// Implementing this method is only necessary when the `arguments` in `createWithFrame` is not `nil`.
+    /// Implementing this method is only necessary when the `arguments` in `createWithFrame` is not `nil`.
     public func createArgsCodec() -> FlutterMessageCodec & NSObjectProtocol {
           return FlutterStandardMessageCodec.sharedInstance()
     }
 }
 
-
-
-
 class FLNativeView: NSObject, FlutterPlatformView {
     
     private var _view: UIView
+        
+    let shared = Analysis.shared
 
     init(
         frame: CGRect,
@@ -58,14 +59,14 @@ class FLNativeView: NSObject, FlutterPlatformView {
     }
 
     func createNativeView(view _view: UIView){
-        _view.backgroundColor = UIColor.blue
-        let nativeLabel = UILabel()
-        nativeLabel.text = "Native text from iOS"
-        nativeLabel.textColor = UIColor.white
-        nativeLabel.textAlignment = .center
-        nativeLabel.frame = CGRect(x: 0, y: 0, width: 180, height: 48.0)
-        _view.addSubview(nativeLabel)
-    
+//        _view.backgroundColor = UIColor.blue
+//        let nativeLabel = UILabel()
+//        nativeLabel.text = "Native text from iOS"
+//        nativeLabel.textColor = UIColor.white
+//        nativeLabel.textAlignment = .center
+//        nativeLabel.frame = CGRect(x: 0, y: 0, width: 180, height: 48.0)
+//        _view.addSubview(_view)
+        _view.addSubview(shared.cameraViewContainer)
     }
 }
 

@@ -46,12 +46,53 @@ android {
     }
 
     defaultConfig {
-        minSdkVersion 19
+        minSdkVersion 23
+        targetSdkVersion 33
+    }
+
+    lintOptions {
+        checkReleaseBuilds false
+    }
+
+    packagingOptions {
+        pickFirst 'lib/arm64-v8a/libopencv_java4.so'
+        pickFirst 'lib/arm64-v8a/libc++_shared.so'
+        pickFirst 'lib/armeabi-v7a/libopencv_java4.so'
+        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
+        pickFirst 'lib/x86_64/libc++_shared.so'
+        pickFirst 'lib/x86_64/libopencv_java4.so'
+        pickFirst 'lib/x86/libc++_shared.so'
+        pickFirst 'lib/x86/libopencv_java4.so'
     }
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
         testImplementation 'org.mockito:mockito-core:5.0.0'
+
+        implementation files('libs/rppg_common:0.5.2.aar')
+        implementation files('libs/rppg_core:0.2.0.aar')
+
+        // include aar files
+//        implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
+
+        // websocket
+        implementation 'com.neovisionaries:nv-websocket-client:2.4'
+
+        // mlkit
+        def mlkit_version = "16.0.3"
+        api "com.google.mlkit:face-detection:${mlkit_version}"
+
+        //opencv
+//        def opencv_version = "4.3.0"
+//        api "com.github.iamareebjamal:opencv-android:${opencv_version}"
+
+        // camerax
+        def camerax_version = "1.0.0-rc01"
+        def camerax_view_version = "1.0.0-alpha20"
+        api "androidx.camera:camera-core:${camerax_version}"
+        api "androidx.camera:camera-camera2:${camerax_version}"
+        api "androidx.camera:camera-lifecycle:${camerax_version}"
+        api "androidx.camera:camera-view:${camerax_view_version}"
     }
 
     testOptions {

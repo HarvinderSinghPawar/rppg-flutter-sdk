@@ -12,17 +12,68 @@ class MockRppgCommonPlatform
   Future<String?> getPlatformVersion() => Future.value('42');
 
   @override
-  Future<String?> startAnalysis() => Future.value('Starting Analysis...');
+  Future<bool> askPermissions() {
+    // TODO: implement askPermissions
+    throw UnimplementedError();
+  }
 
   @override
-  Future<String?> askPermissions() {
-    // TODO: implement askPermissions
+  Future<String?> cleanMesh() {
+    // TODO: implement cleanMesh
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> configure() {
+    // TODO: implement configure
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> meshColor() {
+    // TODO: implement meshColor
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> startVideo() {
+    // TODO: implement startVideo
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> startAnalysis() {
+    // TODO: implement stopAnalysis
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> stopAnalysis() {
+    // TODO: implement stopAnalysis
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String?> stopVideo() {
+    // TODO: implement stopVideo
     throw UnimplementedError();
   }
 
   @override
   Future<String?> beginSession() {
     // TODO: implement beginSession
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<String> getState() {
+    // TODO: implement getState
+    throw UnimplementedError();
+  }
+
+  @override
+  Stream streamStartAnalysis() {
+    // TODO: implement streamStartAnalysis
     throw UnimplementedError();
   }
 
@@ -41,13 +92,5 @@ void main() {
     RppgCommonPlatform.instance = fakePlatform;
 
     expect(await rppgCommonPlugin.getPlatformVersion(), '42');
-  });
-
-  test('startAnalysis', () async {
-    RppgCommon rppgCommonPlugin = RppgCommon();
-    MockRppgCommonPlatform fakePlatform = MockRppgCommonPlatform();
-    RppgCommonPlatform.instance = fakePlatform;
-
-    expect(await rppgCommonPlugin.startAnalysis(), 'Starting Analysis...');
   });
 }

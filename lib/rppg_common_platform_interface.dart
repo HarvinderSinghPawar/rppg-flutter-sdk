@@ -27,15 +27,47 @@ abstract class RppgCommonPlatform extends PlatformInterface {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
-  Future<String?> askPermissions() {
+  Future<String> getState() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<bool> askPermissions() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> configure() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> startVideo() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> stopVideo() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<dynamic> startAnalysis() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Stream<dynamic> streamStartAnalysis() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> stopAnalysis() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> cleanMesh() {
+    throw UnimplementedError('platformVersion() has not been implemented.');
+  }
+
+  Future<String?> meshColor() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 
   Future<String?> beginSession() {
-    throw UnimplementedError('platformVersion() has not been implemented.');
-  }
-
-  Future<String?> startAnalysis() {
     throw UnimplementedError('platformVersion() has not been implemented.');
   }
 }

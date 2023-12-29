@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
-import 'dart:async';
-
-import 'package:flutter/services.dart';
-import 'package:rppg_common/rppg_common.dart';
 import 'package:get/get.dart';
-import 'package:rppg_common_example/camera_view.dart';
-
+import 'package:rppg_common/rppg_common.dart';
+import 'invoke_methods_controller.dart';
 
 void main() {
   runApp(const GetMaterialApp(home: MyApp()));
@@ -19,109 +15,202 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
-  final _rppgCommonPlugin = RppgCommon();
+  late final InvokeMethodController invokeMethodController;
 
   @override
   void initState() {
     super.initState();
-    initPlatformState();
+    initialStep();
   }
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
+  Future<void> initialStep() async {
     try {
-      platformVersion =
-          await _rppgCommonPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
+      invokeMethodController = Get.find<InvokeMethodController>();
+      Get.delete<InvokeMethodController>();
+      invokeMethodController = Get.put(InvokeMethodController());
+    } catch (e) {
+      invokeMethodController = Get.put(InvokeMethodController());
     }
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
+    await invokeMethodController.startWholeSession();
   }
 
+  double? fontSizeVar = 14.00;
+  Color? fontColorVar = Colors.white;
 
-  Future<void> nativeCameraView() async {
-    String platformVersion;
-    try {
-      platformVersion =
-          await _rppgCommonPlugin.getPlatformVersion() ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
-    if (!mounted) return;
-
-    setState(() {
-      _platformVersion = platformVersion;
-    });
-  }
+  List<String> dataList = [];
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              Text('Running on: $_platformVersion\n'),
-              const SizedBox(height: 20.00,),
-              ElevatedButton.icon(
-                onPressed: (){
-                // Get.to(const CameraView());
-                try {
-                   _rppgCommonPlugin.askPermissions();
-                } on PlatformException {
-                  _platformVersion = 'Failed to get platform version.';
-                }
-              },
-                icon: const Icon(Icons.check),
-                label: const Text("Ask Permission"),
+    return Scaffold(
+      extendBodyBehindAppBar: false,
+      // appBar: AppBar(
+      //   leading: IconButton(
+      //     icon: const Icon(Icons.arrow_back, color: Colors.black),
+      //     onPressed: () => log("Back button Pressed..."),
+      //   ),
+      //   title: const SizedBox(),
+      //   backgroundColor: Colors.transparent,
+      // ),
+      body: Obx(
+        () => Stack(
+          // alignment: AlignmentDirectional.bottomCenter,
+          children: [
+            /// Black Empty Container
+            Container(color: Colors.black,),
+
+            /// Camera View
+            const CameraView(),
+
+            /// Button
+            if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Positioned(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  children: [
+                    /// Bottom Part
+                    if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Container(
+                      padding: const EdgeInsets.all(13.0),
+                      color: Colors.white12,
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width,
+                      height: 175,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  invokeMethodController.avgBpm.value,
+                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  invokeMethodController.avgO2SaturationLevel.value,
+                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  invokeMethodController.avgRespirationRate.value,
+                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const SizedBox(width: 15,),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                Text(
+                                  invokeMethodController.bloodPressure.value,
+                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  invokeMethodController.bloodPressureStatus.value,
+                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                ),
+                                const SizedBox(
+                                  height: 8,
+                                ),
+                                Text(
+                                  invokeMethodController.stressStatus.value,
+                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    const SizedBox(height: 10,),
+
+                    SizedBox(
+                      width: 200,
+                      height: 60,
+                      child: Column(
+                        children: [
+                          TextButton(
+                            style: ButtonStyle(
+                                backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                    RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(18.0),
+                                    )
+                                )
+                            ),
+                            onPressed: () {
+                              invokeMethodController.invokeMethod("stopAnalysis");
+                              invokeMethodController.invokeMethod("cleanMesh");
+                              invokeMethodController.updateButtonTitle();
+                            },
+                            child: const Text(
+                              "Stop Scanning",
+                              style: TextStyle(color: Colors.white),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 20.00,),
-              ElevatedButton.icon(
-                onPressed: (){
-                  // Get.to(const CameraView());
-                  try {
-                    _rppgCommonPlugin.beginSession();
-                  } on PlatformException {
-                    _platformVersion = 'Failed to get platform version.';
-                  }
-                },
-                icon: const Icon(Icons.start),
-                label: const Text("Begin Session"),
+            ) else Positioned(
+              child: Align(
+                alignment: Alignment.bottomCenter,
+                child: SizedBox(
+                  width: 200,
+                  height: 80,
+                  child: Column(
+                    children: [
+                      TextButton(
+                        style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(18.0),
+                                ),
+                            ),
+                        ),
+                        child: Text(
+                          invokeMethodController.buttonTitle.value,
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                        onPressed: () {
+                          invokeMethodController.startSession();
+                        },
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              const SizedBox(height: 20.00,),
-              ElevatedButton.icon(
-                onPressed: (){
-                  try {
-                    _rppgCommonPlugin.startAnalysis();
-                    Get.to(const CameraView());
-                  } on PlatformException {
-                    _platformVersion = 'Failed to get platform version.';
-                  }
-                },
-                icon: const Icon(Icons.camera),
-                label: const Text("Start Ananlysis"),
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    invokeMethodController.invokeMethod("stopAnalysis");
+    invokeMethodController.invokeMethod("cleanMesh");
+    invokeMethodController.updateButtonTitle();
+
+    Get.delete<InvokeMethodController>();
+    // TODO: implement dispose
+    super.dispose();
   }
 }
