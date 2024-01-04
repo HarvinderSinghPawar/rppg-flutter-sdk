@@ -1,7 +1,5 @@
 package com.example.rppg_common
 
-import androidx.annotation.NonNull
-
 import io.flutter.embedding.engine.plugins.FlutterPlugin
 import io.flutter.plugin.common.MethodCall
 import io.flutter.plugin.common.MethodChannel
@@ -24,7 +22,11 @@ class RppgCommonPlugin: FlutterPlugin, MethodCallHandler {
   override fun onMethodCall(call: MethodCall, result: Result) {
     if (call.method == "getPlatformVersion") {
       result.success("Android ${android.os.Build.VERSION.RELEASE}")
-    } else {
+    } else if (call.method == "getState") {
+
+      result.success("Hello, getState is successfully invoked inside android.")
+    }
+    else {
       result.notImplemented()
     }
   }

@@ -6,10 +6,12 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+//        maven { url 'https://jitpack.io' }
     }
 
+//    7.3.0
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.3.0'
+        classpath 'com.android.tools.build:gradle:7.3.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -18,6 +20,7 @@ allprojects {
     repositories {
         google()
         mavenCentral()
+        maven { url 'https://jitpack.io' }
     }
 }
 
@@ -29,7 +32,8 @@ android {
         namespace 'com.example.rppg_common'
     }
 
-    compileSdkVersion 33
+//    compileSdkVersion 33
+    compileSdk 29
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -47,46 +51,35 @@ android {
 
     defaultConfig {
         minSdkVersion 23
-        targetSdkVersion 33
+        targetSdkVersion 29
     }
 
-    lintOptions {
-        checkReleaseBuilds false
-    }
-
-    packagingOptions {
-        pickFirst 'lib/arm64-v8a/libopencv_java4.so'
-        pickFirst 'lib/arm64-v8a/libc++_shared.so'
-        pickFirst 'lib/armeabi-v7a/libopencv_java4.so'
-        pickFirst 'lib/armeabi-v7a/libc++_shared.so'
-        pickFirst 'lib/x86_64/libc++_shared.so'
-        pickFirst 'lib/x86_64/libopencv_java4.so'
-        pickFirst 'lib/x86/libc++_shared.so'
-        pickFirst 'lib/x86/libopencv_java4.so'
-    }
+//    lintOptions {
+//        checkReleaseBuilds false
+//    }
 
     dependencies {
         testImplementation 'org.jetbrains.kotlin:kotlin-test'
-        testImplementation 'org.mockito:mockito-core:5.0.0'
 
-        implementation files('libs/rppg_common:0.5.2.aar')
-        implementation files('libs/rppg_core:0.2.0.aar')
+        /// include aar files
+//        implementation files('libs/rppg_common_0.5.2.aar')
+//        implementation files('libs/rppg_core_0.2.0.aar')
+        implementation fileTree(dir: 'libs', include: ['*.jar','*.aar'])
+        artifacts.add("default", file('rppg_common_0.5.2.aar'))
+        artifacts.add("default", file('rppg_core_0.2.0.aar'))
 
-        // include aar files
-//        implementation fileTree(dir: "libs", include: ["*.jar","*.aar"])
-
-        // websocket
+        /// websocket
         implementation 'com.neovisionaries:nv-websocket-client:2.4'
 
-        // mlkit
+        /// mlkit
         def mlkit_version = "16.0.3"
         api "com.google.mlkit:face-detection:${mlkit_version}"
 
-        //opencv
-//        def opencv_version = "4.3.0"
+        /// opencv
+//        def opencv_version = "4.5.1"
 //        api "com.github.iamareebjamal:opencv-android:${opencv_version}"
 
-        // camerax
+        /// camerax
         def camerax_version = "1.0.0-rc01"
         def camerax_view_version = "1.0.0-alpha20"
         api "androidx.camera:camera-core:${camerax_version}"
@@ -106,4 +99,8 @@ android {
             }
         }
     }
+}
+
+dependencies {
+    implementation 'com.google.android.material:material:1.11.0'
 }

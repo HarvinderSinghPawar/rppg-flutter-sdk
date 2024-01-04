@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rppg_common/rppg_common.dart';
@@ -20,7 +23,16 @@ class _MyAppState extends State<MyApp> {
   @override
   void initState() {
     super.initState();
-    initialStep();
+    // initialStep();
+
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return;
+      case TargetPlatform.iOS:
+        initialStep();
+      default:
+        return;
+    }
   }
 
   Future<void> initialStep() async {
@@ -42,165 +54,337 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      extendBodyBehindAppBar: false,
-      // appBar: AppBar(
-      //   leading: IconButton(
-      //     icon: const Icon(Icons.arrow_back, color: Colors.black),
-      //     onPressed: () => log("Back button Pressed..."),
-      //   ),
-      //   title: const SizedBox(),
-      //   backgroundColor: Colors.transparent,
-      // ),
-      body: Obx(
-        () => Stack(
-          // alignment: AlignmentDirectional.bottomCenter,
-          children: [
-            /// Black Empty Container
-            Container(color: Colors.black,),
+    // return
+    //   Scaffold(
+    //   extendBodyBehindAppBar: false,
+    //   // appBar: AppBar(
+    //   //   leading: IconButton(
+    //   //     icon: const Icon(Icons.arrow_back, color: Colors.black),
+    //   //     onPressed: () => log("Back button Pressed..."),
+    //   //   ),
+    //   //   title: const SizedBox(),
+    //   //   backgroundColor: Colors.transparent,
+    //   // ),
+    //   body: Obx(
+    //     () => Stack(
+    //       // alignment: AlignmentDirectional.bottomCenter,
+    //       children: [
+    //         /// Black Empty Container
+    //         Container(color: Colors.black,),
+    //
+    //         /// Camera View
+    //         const CameraView(),
+    //
+    //         /// Button
+    //         if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Positioned(
+    //           child: Align(
+    //             alignment: Alignment.bottomCenter,
+    //             child: Column(
+    //               mainAxisAlignment: MainAxisAlignment.end,
+    //               children: [
+    //                 /// Bottom Part
+    //                 if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Container(
+    //                   padding: const EdgeInsets.all(13.0),
+    //                   color: Colors.white12,
+    //                   alignment: Alignment.center,
+    //                   width: MediaQuery.of(context).size.width,
+    //                   height: 175,
+    //                   child: Row(
+    //                     children: <Widget>[
+    //                       Expanded(
+    //                         child: Column(
+    //                           crossAxisAlignment: CrossAxisAlignment.start,
+    //                           mainAxisAlignment: MainAxisAlignment.start,
+    //                           children: [
+    //                             Text(
+    //                               invokeMethodController.avgBpm.value,
+    //                               style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+    //                             ),
+    //                             const SizedBox(
+    //                               height: 8,
+    //                             ),
+    //                             Text(
+    //                               invokeMethodController.avgO2SaturationLevel.value,
+    //                               style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+    //                             ),
+    //                             const SizedBox(
+    //                               height: 8,
+    //                             ),
+    //                             Text(
+    //                               invokeMethodController.avgRespirationRate.value,
+    //                               style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+    //                             ),
+    //                           ],
+    //                         ),
+    //                       ),
+    //                       const SizedBox(width: 15,),
+    //                       Expanded(
+    //                         child: Column(
+    //                           crossAxisAlignment: CrossAxisAlignment.start,
+    //                           mainAxisAlignment: MainAxisAlignment.start,
+    //                           children: [
+    //                             Text(
+    //                               invokeMethodController.bloodPressure.value,
+    //                               style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+    //                             ),
+    //                             const SizedBox(
+    //                               height: 8,
+    //                             ),
+    //                             Text(
+    //                               invokeMethodController.bloodPressureStatus.value,
+    //                               style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+    //                             ),
+    //                             const SizedBox(
+    //                               height: 8,
+    //                             ),
+    //                             Text(
+    //                               invokeMethodController.stressStatus.value,
+    //                               style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+    //                             ),
+    //                           ],
+    //                         ),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //
+    //                 const SizedBox(height: 10,),
+    //
+    //                 SizedBox(
+    //                   width: 200,
+    //                   height: 60,
+    //                   child: Column(
+    //                     children: [
+    //                       TextButton(
+    //                         style: ButtonStyle(
+    //                             backgroundColor: MaterialStateProperty.all(Colors.indigo),
+    //                             shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    //                                 RoundedRectangleBorder(
+    //                                     borderRadius: BorderRadius.circular(18.0),
+    //                                 )
+    //                             )
+    //                         ),
+    //                         onPressed: () {
+    //                           invokeMethodController.invokeMethod("stopAnalysis");
+    //                           invokeMethodController.invokeMethod("cleanMesh");
+    //                           invokeMethodController.updateButtonTitle();
+    //                         },
+    //                         child: const Text(
+    //                           "Stop Scanning",
+    //                           style: TextStyle(color: Colors.white),
+    //                         ),
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //               ],
+    //             ),
+    //           ),
+    //         ) else Positioned(
+    //           child: Align(
+    //             alignment: Alignment.bottomCenter,
+    //             child: SizedBox(
+    //               width: 200,
+    //               height: 80,
+    //               child: Column(
+    //                 children: [
+    //                   TextButton(
+    //                     style: ButtonStyle(
+    //                         backgroundColor: MaterialStateProperty.all(Colors.indigo),
+    //                         shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+    //                             RoundedRectangleBorder(
+    //                                 borderRadius: BorderRadius.circular(18.0),
+    //                             ),
+    //                         ),
+    //                     ),
+    //                     child: Text(
+    //                       invokeMethodController.buttonTitle.value,
+    //                       style: const TextStyle(color: Colors.white),
+    //                     ),
+    //                     onPressed: () {
+    //                       invokeMethodController.startSession();
+    //                     },
+    //                   ),
+    //                 ],
+    //               ),
+    //             ),
+    //           ),
+    //         ),
+    //       ],
+    //     ),
+    //   ),
+    // );
 
-            /// Camera View
-            const CameraView(),
+    switch (defaultTargetPlatform) {
+      case TargetPlatform.android:
+        return const Scaffold(
+          body: Center(child: Text("Android is working...")),
+        );
+      case TargetPlatform.iOS:
+        return Scaffold(
+          extendBodyBehindAppBar: false,
+          // appBar: AppBar(
+          //   leading: IconButton(
+          //     icon: const Icon(Icons.arrow_back, color: Colors.black),
+          //     onPressed: () => log("Back button Pressed..."),
+          //   ),
+          //   title: const SizedBox(),
+          //   backgroundColor: Colors.transparent,
+          // ),
+          body: Obx(
+                () => Stack(
+              // alignment: AlignmentDirectional.bottomCenter,
+              children: [
+                /// Black Empty Container
+                Container(color: Colors.black,),
 
-            /// Button
-            if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Positioned(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    /// Bottom Part
-                    if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Container(
-                      padding: const EdgeInsets.all(13.0),
-                      color: Colors.white12,
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width,
-                      height: 175,
-                      child: Row(
-                        children: <Widget>[
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  invokeMethodController.avgBpm.value,
-                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                /// Camera View
+                const CameraView(),
+
+                /// Button
+                if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Positioned(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        /// Bottom Part
+                        if (invokeMethodController.rppgFacadeState.value == "analysisRunning") Container(
+                          padding: const EdgeInsets.all(13.0),
+                          color: Colors.white12,
+                          alignment: Alignment.center,
+                          width: MediaQuery.of(context).size.width,
+                          height: 175,
+                          child: Row(
+                            children: <Widget>[
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      invokeMethodController.avgBpm.value,
+                                      style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      invokeMethodController.avgO2SaturationLevel.value,
+                                      style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      invokeMethodController.avgRespirationRate.value,
+                                      style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                    ),
+                                  ],
                                 ),
-                                const SizedBox(
-                                  height: 8,
+                              ),
+                              const SizedBox(width: 15,),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      invokeMethodController.bloodPressure.value,
+                                      style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      invokeMethodController.bloodPressureStatus.value,
+                                      style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                    ),
+                                    const SizedBox(
+                                      height: 8,
+                                    ),
+                                    Text(
+                                      invokeMethodController.stressStatus.value,
+                                      style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                                    ),
+                                  ],
                                 ),
-                                Text(
-                                  invokeMethodController.avgO2SaturationLevel.value,
-                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  invokeMethodController.avgRespirationRate.value,
-                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 15,),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.start,
-                              children: [
-                                Text(
-                                  invokeMethodController.bloodPressure.value,
-                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
+                        ),
+
+                        const SizedBox(height: 10,),
+
+                        SizedBox(
+                          width: 200,
+                          height: 60,
+                          child: Column(
+                            children: [
+                              TextButton(
+                                style: ButtonStyle(
+                                    backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                                    shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                        RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18.0),
+                                        )
+                                    )
                                 ),
-                                const SizedBox(
-                                  height: 8,
+                                onPressed: () {
+                                  invokeMethodController.invokeMethod("stopAnalysis");
+                                  invokeMethodController.invokeMethod("cleanMesh");
+                                  invokeMethodController.updateButtonTitle();
+                                },
+                                child: const Text(
+                                  "Stop Scanning",
+                                  style: TextStyle(color: Colors.white),
                                 ),
-                                Text(
-                                  invokeMethodController.bloodPressureStatus.value,
-                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
-                                ),
-                                const SizedBox(
-                                  height: 8,
-                                ),
-                                Text(
-                                  invokeMethodController.stressStatus.value,
-                                  style: TextStyle(color: fontColorVar, fontWeight: FontWeight.bold, fontSize: fontSizeVar),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-
-                    const SizedBox(height: 10,),
-
-                    SizedBox(
+                  ),
+                ) else Positioned(
+                  child: Align(
+                    alignment: Alignment.bottomCenter,
+                    child: SizedBox(
                       width: 200,
-                      height: 60,
+                      height: 80,
                       child: Column(
                         children: [
                           TextButton(
                             style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                                shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                    RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(18.0),
-                                    )
-                                )
+                              backgroundColor: MaterialStateProperty.all(Colors.indigo),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                ),
+                              ),
+                            ),
+                            child: Text(
+                              invokeMethodController.buttonTitle.value,
+                              style: const TextStyle(color: Colors.white),
                             ),
                             onPressed: () {
-                              invokeMethodController.invokeMethod("stopAnalysis");
-                              invokeMethodController.invokeMethod("cleanMesh");
-                              invokeMethodController.updateButtonTitle();
+                              invokeMethodController.startSession();
                             },
-                            child: const Text(
-                              "Stop Scanning",
-                              style: TextStyle(color: Colors.white),
-                            ),
                           ),
                         ],
                       ),
                     ),
-                  ],
-                ),
-              ),
-            ) else Positioned(
-              child: Align(
-                alignment: Alignment.bottomCenter,
-                child: SizedBox(
-                  width: 200,
-                  height: 80,
-                  child: Column(
-                    children: [
-                      TextButton(
-                        style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.indigo),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(18.0),
-                                ),
-                            ),
-                        ),
-                        child: Text(
-                          invokeMethodController.buttonTitle.value,
-                          style: const TextStyle(color: Colors.white),
-                        ),
-                        onPressed: () {
-                          invokeMethodController.startSession();
-                        },
-                      ),
-                    ],
                   ),
                 ),
-              ),
+              ],
             ),
-          ],
-        ),
-      ),
-    );
+          ),
+        );
+      default:
+        return const Scaffold(
+          body: Center(child: Text("Default Platfrom is Working...")),
+        );
+    }
   }
 
   @override
